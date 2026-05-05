@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "credfeto.package.push": {
+      "version": "1.6.0.203",
+      "commands": [
+        "pushpackages"
+      ],
+      "rollForward": false
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<Project ToolsVersion="latest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- NuGet & libraries / frameworks -->
+    <!-- NU1603: Approximate best match for X was resolved -->
+    <!-- NU5048: The 'PackageIconUrl'/'iconUrl' element is deprecated -->
+    <!-- NU5105: The package version uses SemVer 2.0.0 or components of SemVer 1.0.0 that are not supported on legacy clients -->
+    <!-- NETSDK1138: The target framework 'net5.0' is out of support. -->
+    <NoWarn>$(NoWarn);NU1603;NU1902;NU1904;NU5048;NU5105;NETSDK1138</NoWarn>
+  </PropertyGroup>
+
+</Project>

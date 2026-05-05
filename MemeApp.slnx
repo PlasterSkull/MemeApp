@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/dotnet/" />
+  <Folder Name="/src/dotnet/Apps/" />
+  <Folder Name="/src/dotnet/Core/">
+    <Project Path="src/dotnet/Core/MemeApp.Core/MemeApp.Core.csproj" />
+  </Folder>
+  <Folder Name="/src/dotnet/Infrastructure/">
+    <Project Path="src/dotnet/Infrastructure/MemeApp.Infrastructure.Data/MemeApp.Infrastructure.Data.csproj" Id="b38658be-1d5f-44db-b3a0-7328f1baaa94" />
+  </Folder>
+  <Folder Name="/src/dotnet/Shared/">
+    <Project Path="src/dotnet/Shared/MemeApp.Common/MemeApp.Common.csproj" />
+  </Folder>
+  <Folder Name="/_/">
+    <File Path=".editorconfig" />
+    <File Path=".filenesting.json" />
+    <File Path=".gitignore" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="dotnet-tools.json" />
+    <File Path="LICENSE" />
+  </Folder>
+</Solution>
