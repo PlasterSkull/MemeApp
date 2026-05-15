@@ -14,20 +14,13 @@ public static class ModuleApplicationExtensions
         where TRootModule : AppModule
     {
         var ordered = TopologicalSort(typeof(TRootModule));
+        var context = new ModuleContext(
+            services,
+            configuration,
+            hostEnvironment,
+            [.. ordered.Select(t => t.Assembly).Distinct()]);
 
-        var assemblies = ordered
-            .Select(t => t.Assembly)
-            .Distinct()
-            .ToList()
-            .AsReadOnly();
-
-        var context = new ModuleContext(services, configuration, hostEnvironment, assemblies);
-
-        foreach (var moduleType in ordered)
-        {
-            var module = (AppModule)Activator.CreateInstance(moduleType)!;
-            module.ConfigureServices(context);
-        }
+        ordered.ForEach(t => ((AppModule)Activator.CreateInstance(t)!).ConfigureServices(context));
 
         return services;
     }
@@ -61,7 +54,7 @@ public static class ModuleApplicationExtensions
 
     private static IEnumerable<Type> GetDependencies(Type moduleType) =>
         moduleType
-            .GetCustomAttributes(inherit: true)
-            .OfType<IDependsOnModule>()
+            .GetCustomAttributes(typeof(IDependsOnModule), inherit: true)
+            .Cast<IDependsOnModule>()
             .Select(a => a.ModuleType);
 }
