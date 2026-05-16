@@ -1,4 +1,4 @@
-namespace MemeApp.Common.Extensions;
+namespace MemeApp.Common;
 
 public static class LinqExt
 {

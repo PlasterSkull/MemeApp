@@ -1,7 +1,7 @@
-using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Immutable;
 
 namespace MemeApp.Common.HostModule;
 
@@ -14,13 +14,22 @@ public static class ModuleApplicationExtensions
         where TRootModule : AppModule
     {
         var ordered = TopologicalSort(typeof(TRootModule));
-        var context = new ModuleContext(
-            services,
-            configuration,
-            hostEnvironment,
-            [.. ordered.Select(t => t.Assembly).Distinct()]);
 
-        ordered.ForEach(t => ((AppModule)Activator.CreateInstance(t)!).ConfigureServices(context));
+        var context = new ModuleContext
+        {
+            Services = services,
+            Configuration = configuration,
+            HostEnvironment = hostEnvironment,
+            ModuleAssemblies = ordered
+                .Select(t => t.Assembly)
+                .Distinct()
+                .ToImmutableList(),
+        };
+
+        ordered
+            .Select(moduleType => Activator.CreateInstance(moduleType))
+            .Cast<AppModule>()
+            .ForEach(module => module.ConfigureServices(context));
 
         return services;
     }
@@ -30,6 +39,10 @@ public static class ModuleApplicationExtensions
         var visited = new HashSet<Type>();
         var visiting = new HashSet<Type>();
         var result = new List<Type>();
+
+        Visit(rootType);
+
+        return result;
 
         void Visit(Type type)
         {
@@ -47,9 +60,6 @@ public static class ModuleApplicationExtensions
             visited.Add(type);
             result.Add(type);
         }
-
-        Visit(rootType);
-        return result;
     }
 
     private static IEnumerable<Type> GetDependencies(Type moduleType) =>

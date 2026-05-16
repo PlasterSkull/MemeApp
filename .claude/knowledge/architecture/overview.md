@@ -18,7 +18,6 @@ src/dotnet/
     MemeApp.Infrastructure.Data/ ← EF Core, migrations, DB context
   Shared/
     MemeApp.Common/             ← Utilities: LinqExt, host module system
-    MemeApp.Common.Tests/       ← Tests for Common
 ```
 
 ## Layer Rules
@@ -57,5 +56,4 @@ the `.Maui` project name suffix triggers the conditional exclusion already in pl
 | **ActualLab.Fusion** | Real-time reactive state: computed services, live queries, sessions |
 | **MudBlazor** | Material Design UI components for Blazor |
 | **FluentValidation** | Input validation |
-| **Markdig + Markdown.ColorCode** | Markdown rendering with syntax highlighting |
 | **EF Core** | Data access (Infrastructure layer) |

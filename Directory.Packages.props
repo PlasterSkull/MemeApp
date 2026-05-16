@@ -1,108 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="latest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<!-- Central package management -->
-	<PropertyGroup>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-	</PropertyGroup>
-	<!-- Constants -->
-	<PropertyGroup>
-		<!-- Core packages -->
-		<AspNetCoreVersion>10.0.2</AspNetCoreVersion>
-		<SystemXxxVersion>$(AspNetCoreVersion)</SystemXxxVersion>
-		<BlazorVersion>$(AspNetCoreVersion)</BlazorVersion>
-		<MicrosoftExtensionsVersion>[10.0.2,)</MicrosoftExtensionsVersion>
-		<EntityFrameworkCoreVersion>[10.0.2,)</EntityFrameworkCoreVersion>
-		<MauiVersion>10.0.20</MauiVersion>
-		<ActualLabVersion>12.4.6</ActualLabVersion>
+  <!-- Central package management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <!-- Constants -->
+  <PropertyGroup>
+    <!-- Core packages -->
+    <AspNetCoreVersion>10.0.2</AspNetCoreVersion>
+    <SystemXxxVersion>$(AspNetCoreVersion)</SystemXxxVersion>
+    <BlazorVersion>$(AspNetCoreVersion)</BlazorVersion>
+    <MicrosoftExtensionsVersion>[10.0.2,)</MicrosoftExtensionsVersion>
+    <EntityFrameworkCoreVersion>[10.0.2,)</EntityFrameworkCoreVersion>
+    <MauiVersion>10.0.20</MauiVersion>
+    <ActualLabVersion>12.4.6</ActualLabVersion>
     <PlasterSkullVersion>0.1.0</PlasterSkullVersion>
-		<XamarinAndroidLifecycle>[2.9.2.1,)</XamarinAndroidLifecycle>
-	</PropertyGroup>
-	<!-- Dependencies -->
-	<ItemGroup Label="Nupkg Versions">
-		<PackageVersion Include="ActualLab.Core" Version="$(ActualLabVersion)" />
-		<PackageVersion Include="ActualLab.Fusion.Blazor" Version="$(ActualLabVersion)" />
-		<PackageVersion Include="ErrorOr" Version="2.0.1" />
-		<PackageVersion Include="Fluxor.Blazor.Web" Version="6.0.0" />
-		<PackageVersion Include="FluentValidation" Version="12.1.1" />
-		<PackageVersion Include="Markdig" Version="0.37.0" />
-		<PackageVersion Include="Markdown.ColorCode" Version="2.3.0" />
-		<!-- Blazor -->
-		<PackageVersion Include="Microsoft.AspNetCore.Components" Version="$(BlazorVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Authorization" Version="$(BlazorVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazorVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazorVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(BlazorVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(BlazorVersion)" PrivateAssets="all" />
-		<!-- Build -->
-		<PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
-		<PackageVersion Include="MudBlazor" Version="9.4.0" />
-	</ItemGroup>
-	<!--
+    <XamarinAndroidLifecycle>[2.9.2.1,)</XamarinAndroidLifecycle>
+  </PropertyGroup>
+  <!-- Dependencies -->
+  <ItemGroup Label="Nupkg Versions">
+    <PackageVersion Include="ActualLab.Core" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.Blazor" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="Fluxor.Blazor.Web" Version="6.0.0" />
+    <PackageVersion Include="FluentValidation" Version="12.1.1" />
+    <PackageVersion Include="Markdig" Version="0.37.0" />
+    <PackageVersion Include="Markdown.ColorCode" Version="2.3.0" />
+    <!-- Blazor -->
+    <PackageVersion Include="Microsoft.AspNetCore.Components" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Authorization" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(BlazorVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(BlazorVersion)" PrivateAssets="all" />
+    <!-- Build -->
+    <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
+    <PackageVersion Include="MudBlazor" Version="9.4.0" />
+    <PackageVersion Include="PlasterSkull.Framework.Core" Version="0.1.0" />
+  </ItemGroup>
+  <!--
     MAUI is not fully compatible with centralized packages management:
     - https://github.com/dotnet/sdk/issues/27840
     So we use only some packages in its project, and some - in other projects.
   -->
-	<!-- MAUI-specific packages -->
-	<ItemGroup Condition="$(MSBuildProjectName.Contains('.Maui'))">
-		<PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="banditoth.MAUI.DeviceId" Version="1.0.0" />
-		<PackageVersion Include="Plugin.Firebase.CloudMessaging" Version="3.1.1" />
-		<PackageVersion Include="Plugin.Firebase.Analytics" Version="3.1.0" />
-		<PackageVersion Include="Plugin.Firebase.Crashlytics" Version="3.1.0" />
-		<PackageVersion Include="sqlite-net-pcl" Version="1.9.172" />
-		<PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
-		<!-- Android -->
-		<PackageVersion Include="Mono.Profiler.Android" Version="7.0.0" />
-		<PackageVersion Include="Mono.AotProfiler.Android" Version="9.0.0-preview1" />
-		<PackageVersion Include="Xamarin.AndroidX.Core" Version="1.15.0.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Collection" Version="1.4.5.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.5.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.5.1" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx.Android" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData.Core.Ktx" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.Process" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime" Version="$(XamarinAndroidLifecycle)" />
-		<PackageVersion Include="Xamarin.Firebase.Analytics" Version="122.1.2.1" />
-		<PackageVersion Include="Xamarin.Firebase.Crashlytics" Version="119.2.1.1" />
-		<PackageVersion Include="Xamarin.Firebase.Messaging" Version="124.0.3.1" />
-		<PackageVersion Include="Xamarin.GooglePlayServices.Auth" Version="121.2.0.3" />
-		<PackageVersion Include="Xamarin.GooglePlayServices.CroNet" Version="118.1.0.3" />
-		<PackageVersion Include="Xamarin.Google.Dagger" Version="2.52.0.2" />
-		<!-- iOS -->
-		<PackageVersion Include="Xamarin.Build.Download" Version="0.11.4" />
-		<PackageVersion Include="AdamE.Firebase.iOS.Analytics" Version="10.29.0.1" />
-		<PackageVersion Include="AdamE.Firebase.iOS.Crashlytics" Version="10.29.0.1" />
-		<PackageVersion Include="AdamE.Firebase.iOS.CloudMessaging" Version="10.29.0.1" />
-	</ItemGroup>
-	<!-- Strictly non-MAUI packages -->
-	<ItemGroup Label="Nupkg Extensions Versions" Condition="!$(MSBuildProjectName.Contains('.Maui'))">
-		<PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.FileProviders.Physical" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsVersion)" />
-		<!-- Somehow these packages are updated w/ ASP.NET Core -->
-		<PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="$(AspNetCoreVersion)" />
-		<PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="$(AspNetCoreVersion)" />
-	</ItemGroup>
+  <!-- MAUI-specific packages -->
+  <ItemGroup Condition="$(MSBuildProjectName.Contains('.Maui'))">
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="banditoth.MAUI.DeviceId" Version="1.0.0" />
+    <PackageVersion Include="Plugin.Firebase.CloudMessaging" Version="3.1.1" />
+    <PackageVersion Include="Plugin.Firebase.Analytics" Version="3.1.0" />
+    <PackageVersion Include="Plugin.Firebase.Crashlytics" Version="3.1.0" />
+    <PackageVersion Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageVersion Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+    <!-- Android -->
+    <PackageVersion Include="Mono.Profiler.Android" Version="7.0.0" />
+    <PackageVersion Include="Mono.AotProfiler.Android" Version="9.0.0-preview1" />
+    <PackageVersion Include="Xamarin.AndroidX.Core" Version="1.15.0.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Collection" Version="1.4.5.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.5.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.8.5.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx.Android" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData.Core.Ktx" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.Process" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.AndroidX.Lifecycle.Runtime" Version="$(XamarinAndroidLifecycle)" />
+    <PackageVersion Include="Xamarin.Firebase.Analytics" Version="122.1.2.1" />
+    <PackageVersion Include="Xamarin.Firebase.Crashlytics" Version="119.2.1.1" />
+    <PackageVersion Include="Xamarin.Firebase.Messaging" Version="124.0.3.1" />
+    <PackageVersion Include="Xamarin.GooglePlayServices.Auth" Version="121.2.0.3" />
+    <PackageVersion Include="Xamarin.GooglePlayServices.CroNet" Version="118.1.0.3" />
+    <PackageVersion Include="Xamarin.Google.Dagger" Version="2.52.0.2" />
+    <!-- iOS -->
+    <PackageVersion Include="Xamarin.Build.Download" Version="0.11.4" />
+    <PackageVersion Include="AdamE.Firebase.iOS.Analytics" Version="10.29.0.1" />
+    <PackageVersion Include="AdamE.Firebase.iOS.Crashlytics" Version="10.29.0.1" />
+    <PackageVersion Include="AdamE.Firebase.iOS.CloudMessaging" Version="10.29.0.1" />
+  </ItemGroup>
+  <!-- Strictly non-MAUI packages -->
+  <ItemGroup Label="Nupkg Extensions Versions" Condition="!$(MSBuildProjectName.Contains('.Maui'))">
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.FileProviders.Physical" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsVersion)" />
+    <!-- Somehow these packages are updated w/ ASP.NET Core -->
+    <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="$(AspNetCoreVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="$(AspNetCoreVersion)" />
+    <!-- Test -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="all" />
+  </ItemGroup>
 </Project>
