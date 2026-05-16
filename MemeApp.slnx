@@ -1,15 +1,45 @@
 <Solution>
+  <Folder Name="/.claude/">
+    <File Path=".claude/settings.local.json" />
+  </Folder>
+  <Folder Name="/.claude/knowledge/project/">
+    <File Path=".claude/knowledge/project/README.md" />
+    <File Path=".claude/knowledge/project/overview.md" />
+    <File Path=".claude/knowledge/project/domain.md" />
+  </Folder>
+  <Folder Name="/.claude/knowledge/architecture/">
+    <File Path=".claude/knowledge/architecture/README.md" />
+    <File Path=".claude/knowledge/architecture/overview.md" />
+    <File Path=".claude/knowledge/architecture/fusion.md" />
+  </Folder>
+  <Folder Name="/.claude/knowledge/code-style/">
+    <File Path=".claude/knowledge/code-style/README.md" />
+    <File Path=".claude/knowledge/code-style/naming.md" />
+    <File Path=".claude/knowledge/code-style/file-namespace.md" />
+    <File Path=".claude/knowledge/code-style/di-modules.md" />
+    <File Path=".claude/knowledge/code-style/fusion.md" />
+    <File Path=".claude/knowledge/code-style/async.md" />
+    <File Path=".claude/knowledge/code-style/formatting.md" />
+    <File Path=".claude/knowledge/code-style/blazor-ui.md" />
+    <File Path=".claude/knowledge/code-style/testing.md" />
+  </Folder>
+  <Folder Name="/cmd/" />
   <Folder Name="/src/" />
   <Folder Name="/src/dotnet/" />
-  <Folder Name="/src/dotnet/Apps/" />
-  <Folder Name="/src/dotnet/Core/">
-    <Project Path="src/dotnet/Core/MemeApp.Core/MemeApp.Core.csproj" />
+  <Folder Name="/src/dotnet/Apps/">
+    <Project Path="D:/Repositories/MemeApp/src/dotnet/Apps/MemeApp.Apps.UI.Core/MemeApp.Apps.UI.Core.csproj" Id="cfde57b6-468a-4980-ab9f-434d8fcf36e9" />
   </Folder>
+  <Folder Name="/src/dotnet/Core/">
+    <Project Path="D:/Repositories/MemeApp/src/dotnet/Core/MemeApp.Core/MemeApp.Core.csproj" />
+  </Folder>
+  <Folder Name="/src/dotnet/Domains/" />
+  <Folder Name="/src/dotnet/Domains/Memes/" />
+  <Folder Name="/src/dotnet/Domains/Users/" />
   <Folder Name="/src/dotnet/Infrastructure/">
-    <Project Path="src/dotnet/Infrastructure/MemeApp.Infrastructure.Data/MemeApp.Infrastructure.Data.csproj" Id="b38658be-1d5f-44db-b3a0-7328f1baaa94" />
+    <Project Path="D:/Repositories/MemeApp/src/dotnet/Infrastructure/MemeApp.Infrastructure.Data/MemeApp.Infrastructure.Data.csproj" Id="b38658be-1d5f-44db-b3a0-7328f1baaa94" />
   </Folder>
   <Folder Name="/src/dotnet/Shared/">
-    <Project Path="src/dotnet/Shared/MemeApp.Common/MemeApp.Common.csproj" />
+    <Project Path="D:/Repositories/MemeApp/src/dotnet/Shared/MemeApp.Common/MemeApp.Common.csproj" />
   </Folder>
   <Folder Name="/_/">
     <File Path=".editorconfig" />
