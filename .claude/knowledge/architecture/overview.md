@@ -41,6 +41,15 @@ Consumer projects reference only `Contracts`. This keeps build graphs clean.
 Each project exposes a static `Configure` class with registration methods.
 `AddModules(...)` in `MemeApp.Common` wires them up with topological sort + cycle detection.
 
+## Package Management
+
+All NuGet versions are centrally managed in `Directory.Packages.props` at repo root.
+Do **not** include version numbers in individual `.csproj` files.
+Add new packages to `Directory.Packages.props` first, then reference without a version.
+
+MAUI projects are exempt from some centrally managed packages (`NU1009`);
+the `.Maui` project name suffix triggers the conditional exclusion already in place.
+
 ## Key Libraries
 
 | Library | Purpose |

@@ -18,21 +18,10 @@ dotnet clean          # Clean build outputs
 
 The solution file is `MemeApp.slnx` (modern format). No test projects yet.
 
-## Package Management
-
-All NuGet versions are centrally managed in `Directory.Packages.props`.
-Do **not** include version numbers in individual `.csproj` files.
-Add new packages to `Directory.Packages.props` first, then reference without a version.
-
-MAUI projects are exempt from some centrally managed packages (`NU1009`);
-the `.Maui` project name suffix triggers the conditional exclusion already in place.
-
 ## Knowledge Base
 
-Load relevant docs at the start of each task:
-
-| Context | Index |
-|---------|-------|
-| Business domain, product goals | `.claude/knowledge/project/README.md` |
-| Solution structure, layers, libraries | `.claude/knowledge/architecture/README.md` |
-| Naming, formatting, patterns | `.claude/knowledge/code-style/README.md` |
+| Context | Index | When to load |
+|---------|-------|--------------|
+| Business domain, product goals | `.claude/knowledge/project/README.md` | Discussing features, domain model, product decisions |
+| Solution structure, layers, libraries, packages | `.claude/knowledge/architecture/README.md` | Adding projects, wiring dependencies, choosing libraries |
+| Naming, formatting, patterns | `.claude/knowledge/code-style/README.md` | Writing or reviewing any C# code |
