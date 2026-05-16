@@ -2,11 +2,11 @@
 
 ## Method Signatures
 
-All service methods are async. `CancellationToken ct = default` is always last:
+All service methods are async. `CancellationToken cancellationToken = default` is always last:
 
 ```csharp
-Task<MemeDto?> GetAsync(Guid id, CancellationToken ct = default);
-Task AddTagAsync(Guid memeId, string tagSlug, CancellationToken ct = default);
+Task<MemeDto?> GetAsync(Guid id, CancellationToken cancellationToken = default);
+Task AddTagAsync(Guid memeId, string tagSlug, CancellationToken cancellationToken = default);
 ```
 
 ## Task vs ValueTask
@@ -37,8 +37,8 @@ This project is application-layer, not a library.
 Use `Task.WhenAll` for independent concurrent operations:
 
 ```csharp
-var memeTask = memeService.GetAsync(id, ct);
-var tagsTask = tagService.ListForMemeAsync(id, ct);
+var memeTask = memeService.GetAsync(id, cancellationToken);
+var tagsTask = tagService.ListForMemeAsync(id, cancellationToken);
 await Task.WhenAll(memeTask, tagsTask);
 var meme = memeTask.Result;
 var tags = tagsTask.Result;

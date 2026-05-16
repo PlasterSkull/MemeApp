@@ -4,27 +4,52 @@ Source of truth: `.editorconfig` at repo root.
 
 ## Braces — Allman style
 
-Opening brace on new line for: types, methods, control blocks, properties, accessors, lambdas.
+Opening brace on new line for: types, methods, control blocks, properties, accessors.
 
-```csharp
-public class MemeService
-{
-    public async Task<MemeDto?> GetAsync(Guid id)
-    {
-        if (id == Guid.Empty)
-        {
-            return null;
-        }
-        return await _repo.FindAsync(id);
-    }
-}
-```
-
-No braces preferred for single-statement blocks (`csharp_prefer_braces = false`):
+**Always use braces** for `if`/`else`/`for`/`foreach`/`while`/`using` blocks:
 
 ```csharp
 if (id == Guid.Empty)
+{
     return null;
+}
+
+foreach (var tag in tags)
+{
+    meme.Tags.Add(tag);
+}
+```
+
+**Exception — LINQ lambda chains:** no braces, expression form only:
+
+```csharp
+var slugs = tags
+    .Where(tag => tag.IsActive)
+    .Select(tag => tag.Slug)
+    .ToList();
+```
+
+## Primary Constructors
+
+Prefer primary constructors when the constructor has no logic — only field assignment:
+
+```csharp
+// Preferred
+public class MemeService(IDbContextFactory<AppDbContext> dbFactory) : IMemeService
+{
+    // ...
+}
+
+// Only when constructor logic is needed
+public class MemeService : IMemeService
+{
+    private readonly IDbContextFactory<AppDbContext> _dbFactory;
+
+    public MemeService(IDbContextFactory<AppDbContext> dbFactory)
+    {
+        _dbFactory = dbFactory ?? throw new ArgumentNullException(nameof(dbFactory));
+    }
+}
 ```
 
 ## Expression Bodies
@@ -42,12 +67,6 @@ public string GetSlug() => Name.ToLowerInvariant().Replace(' ', '-');
 
 // Property — expression body
 public string DisplayName => $"{Name} ({MediaType})";
-
-// Constructor — block body
-public MemeService(IRepository repo)
-{
-    _repo = repo;
-}
 ```
 
 ## var vs Explicit Type
@@ -62,7 +81,7 @@ public MemeService(IRepository repo)
 var meme = await _repo.FindAsync(id);          // type apparent
 int count = memes.Count;                        // built-in
 string name = tag.Name;                         // built-in
-var results = memes.Where(m => ...).ToList();  // complex
+var results = memes.Where(tag => ...).ToList(); // complex
 ```
 
 ## Indentation & Line Endings
@@ -80,6 +99,5 @@ public private internal protected async static readonly sealed override abstract
 ## Other
 
 - No `this.` qualification on any member
-- No primary constructors (`csharp_style_prefer_primary_constructors = false`)
 - File-scoped namespaces (see file-namespace.md)
 - `using` directives outside namespace

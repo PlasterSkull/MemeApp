@@ -18,7 +18,7 @@
 | Public property | PascalCase | `CreatedAt`, `MediaType` |
 | Private field | `_camelCase` | `_repository`, `_logger` |
 | Local variable | camelCase | `meme`, `tagSlug` |
-| Parameter | camelCase | `memeId`, `cancellationToken` / `ct` |
+| Parameter | camelCase | `memeId`, `cancellationToken` |
 | Const | PascalCase | `MaxTagLength` |
 
 ## DTOs
@@ -50,6 +50,21 @@ Task AddTagAsync(...)
 Task<ImmutableList<MemeDto>> ListByTagAsync(...)
 ```
 
+## Lambda Variables (LINQ)
+
+Always use full descriptive names in lambda expressions — no single letters or abbreviations:
+
+```csharp
+// Correct
+memes.Where(meme => meme.MediaType == MediaType.Gif)
+tags.Select(tag => tag.Slug)
+collections.OrderBy(collection => collection.Name)
+
+// Wrong
+memes.Where(m => m.MediaType == MediaType.Gif)
+tags.Select(t => t.Slug)
+```
+
 ## No Abbreviations
 
-Full words preferred. Exceptions: `ct` for `CancellationToken`, `dto` for DTO locals.
+Full words always. No exceptions for parameters or locals.
