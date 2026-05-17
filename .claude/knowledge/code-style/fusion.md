@@ -32,8 +32,8 @@ public class MemeService(IDbContextFactory<AppDbContext> dbFactory) : IMemeServi
 {
     public virtual async Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken)
     {
-        await using var db = await dbFactory.CreateDbContextAsync(cancellationToken);
-        var meme = await db.Memes.FindAsync([id.Value], cancellationToken);
+        await using var dbContext = await dbFactory.CreateDbContextAsync(cancellationToken);
+        var meme = await dbContext.Memes.FindAsync([id.Value], cancellationToken);
         return meme?.ToDto();
     }
 }
@@ -50,8 +50,8 @@ Rules:
 ```csharp
 public async Task DeleteAsync(MemeId id, CancellationToken cancellationToken)
 {
-    await using var db = await dbFactory.CreateDbContextAsync(cancellationToken);
-    await db.Memes.Where(meme => meme.Id == id.Value).ExecuteDeleteAsync(cancellationToken);
+    await using var dbContext = await dbFactory.CreateDbContextAsync(cancellationToken);
+    await dbContext.Memes.Where(meme => meme.Id == id.Value).ExecuteDeleteAsync(cancellationToken);
 
     using (Invalidation.Begin())
     {
@@ -73,11 +73,6 @@ Rules:
 ```csharp
 var fusion = services.AddFusion();
 fusion.AddService<IMemeService, MemeService>();
-```
-
-For Blazor host add:
-```csharp
-services.AddFusion().AddBlazor();
 ```
 
 ---
