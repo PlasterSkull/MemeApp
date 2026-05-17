@@ -2,16 +2,16 @@
 
 ## Aggregates
 
-- `User` — учётная запись пользователя (профиль, идентификация)
-- `UserSettings` — настройки пользователя 1:1 к User
+- `MemeUser` — учётная запись пользователя (профиль, идентификация)
+- `MemeUserSettings` — настройки пользователя 1:1 к MemeUser
 
-## User
+## MemeUser
 
 ### Fields
 
 | Field | Type | Notes |
 |-------|------|-------|
-| Id | `UserId` | Strongly typed, wraps `long` |
+| Id | `MemeUserId` | Strongly typed, wraps `long` |
 | Username | `string` | Уникальный |
 | Email | `string` | Уникальный |
 | AvatarUrl | `string?` | |
@@ -19,26 +19,26 @@
 
 ### Queries
 
-- `GetAsync(UserId)` → `User?`
+- `GetAsync(MemeUserId)` → `MemeUser?`
 
 ### Commands
 
-- `UpdateProfileAsync(UpdateUserProfileCommand)` → `User`
-- `DeleteAsync(DeleteUserCommand)` → (none)
+- `UpdateProfileAsync(UpdateMemeUserProfileCommand)` → `MemeUser`
+- `DeleteAsync(DeleteMemeUserCommand)` → (none)
 
-## UserSettings
+## MemeUserSettings
 
 ### Fields
 
 | Field | Type | Notes |
 |-------|------|-------|
-| UserId | `UserId` | PK + FK, wraps `long` |
+| MemeUserId | `MemeUserId` | PK + FK, wraps `long` |
 | Theme | `Theme` (enum) | Light / Dark / System |
 
 ### Queries
 
-- `GetAsync(UserId)` → `UserSettings?`
+- `GetAsync(MemeUserId)` → `MemeUserSettings?`
 
 ### Commands
 
-- `UpdateAsync(UpdateUserSettingsCommand)` → `UserSettings`
+- `UpdateAsync(UpdateMemeUserSettingsCommand)` → `MemeUserSettings`

@@ -41,7 +41,6 @@
     <PackageVersion Include="PlasterSkull.Framework.Blazor.ServerSide" Version="$(PlasterSkullVersion)" />
   </ItemGroup>
   <ItemGroup Label="Nupkg Versions">
-    <PackageVersion Include="PlasterSkull.Framework.Core" Version="0.1.0" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <!-- Blazor -->

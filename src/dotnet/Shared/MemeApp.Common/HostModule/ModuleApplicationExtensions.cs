@@ -15,6 +15,7 @@ public static class ModuleApplicationExtensions
     {
         var ordered = TopologicalSort(typeof(TRootModule));
 
+        var fusionBuilder = services.AddFusion();
         var context = new ModuleContext
         {
             Services = services,
@@ -24,6 +25,7 @@ public static class ModuleApplicationExtensions
                 .Select(t => t.Assembly)
                 .Distinct()
                 .ToImmutableList(),
+            FusionBuilder = fusionBuilder,
         };
 
         ordered
