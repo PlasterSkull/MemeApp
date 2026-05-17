@@ -10,10 +10,10 @@ See also: `.claude/knowledge/architecture/fusion.md` for conceptual overview.
 public interface IMemeService : IComputeService
 {
     [ComputeMethod]
-    Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken = default);
+    Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken);
 
     [ComputeMethod]
-    Task<ImmutableList<MemeDto>> ListByTagAsync(string tag, CancellationToken cancellationToken = default);
+    Task<ImmutableList<MemeDto>> ListByTagAsync(string tag, CancellationToken cancellationToken);
 }
 ```
 
@@ -21,8 +21,7 @@ Rules:
 - Extend `IComputeService`
 - `[ComputeMethod]` on every reactive method
 - Return `Task<T>` — never `ValueTask`, never plain `T`
-- `CancellationToken cancellationToken = default` always last
-- **Always pass `cancellationToken` through every call** — never drop it mid-chain
+- `CancellationToken cancellationToken` always last — **no `= default`**, callers must pass it explicitly
 
 ---
 
@@ -31,7 +30,7 @@ Rules:
 ```csharp
 public class MemeService(IDbContextFactory<AppDbContext> dbFactory) : IMemeService
 {
-    public virtual async Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken = default)
+    public virtual async Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken)
     {
         await using var db = await dbFactory.CreateDbContextAsync(cancellationToken);
         var meme = await db.Memes.FindAsync([id.Value], cancellationToken);
@@ -49,23 +48,23 @@ Rules:
 ## Invalidation
 
 ```csharp
-public async Task DeleteAsync(MemeId id, CancellationToken cancellationToken = default)
+public async Task DeleteAsync(MemeId id, CancellationToken cancellationToken)
 {
     await using var db = await dbFactory.CreateDbContextAsync(cancellationToken);
     await db.Memes.Where(meme => meme.Id == id.Value).ExecuteDeleteAsync(cancellationToken);
 
     using (Invalidation.Begin())
     {
-        _ = GetAsync(id);
-        _ = ListByTagAsync(default!);  // invalidate all tag lists
+        _ = GetAsync(id, default);
+        _ = ListByTagAsync(default!, default);  // invalidate all tag lists
     }
 }
 ```
 
 Rules:
 - `Invalidation.Begin()` — not `Computed.Invalidate()`
-- Call the exact method signatures whose cache should be dropped
-- Calls inside `Invalidation.Begin()` are synchronous no-ops that mark cache entries stale
+- Inside `Invalidation.Begin()` pass `default` for `cancellationToken` — calls are synchronous no-ops
+- Calls inside `Invalidation.Begin()` only mark cache entries stale, method body does not execute
 
 ---
 
@@ -93,7 +92,7 @@ public interface IMemeService : IComputeService
     [ComputeMethod]
     Task<ImmutableList<MemeDto>> GetMyMemesAsync(
         Session session,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken);
 }
 
 public class MemeService : IMemeService
@@ -102,7 +101,7 @@ public class MemeService : IMemeService
 
     public virtual async Task<ImmutableList<MemeDto>> GetMyMemesAsync(
         Session session,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         var user = await _auth.GetUser(session, cancellationToken).Require();
         // result auto-invalidates when user signs out

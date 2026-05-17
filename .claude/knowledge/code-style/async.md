@@ -2,11 +2,17 @@
 
 ## Method Signatures
 
-All service methods are async. `CancellationToken cancellationToken = default` is always last:
+`CancellationToken cancellationToken` always last.
 
+**Fusion services** — no `= default`. Callers must pass explicitly:
 ```csharp
-Task<MemeDto?> GetAsync(Guid id, CancellationToken cancellationToken = default);
-Task AddTagAsync(Guid memeId, string tagSlug, CancellationToken cancellationToken = default);
+Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken);
+Task<ImmutableList<MemeDto>> ListByTagAsync(string tag, CancellationToken cancellationToken);
+```
+
+**Non-Fusion methods** — `= default` allowed:
+```csharp
+Task AddTagAsync(MemeId memeId, string tagSlug, CancellationToken cancellationToken = default);
 ```
 
 ## Task vs ValueTask
