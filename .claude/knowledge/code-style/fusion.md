@@ -10,10 +10,10 @@ See also: `.claude/knowledge/architecture/fusion.md` for conceptual overview.
 public interface IMemeService : IComputeService
 {
     [ComputeMethod]
-    Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken);
+    Task<Meme?> GetAsync(MemeId id, CancellationToken cancellationToken);
 
     [ComputeMethod]
-    Task<ImmutableList<MemeDto>> ListByTagAsync(string tag, CancellationToken cancellationToken);
+    Task<ImmutableList<Meme>> ListByTagAsync(string tag, CancellationToken cancellationToken);
 }
 ```
 
@@ -30,7 +30,7 @@ Rules:
 ```csharp
 public class MemeService(IDbContextFactory<AppDbContext> dbFactory) : IMemeService
 {
-    public virtual async Task<MemeDto?> GetAsync(MemeId id, CancellationToken cancellationToken)
+    public virtual async Task<Meme?> GetAsync(MemeId id, CancellationToken cancellationToken)
     {
         await using var dbContext = await dbFactory.CreateDbContextAsync(cancellationToken);
         var meme = await dbContext.Memes.FindAsync([id.Value], cancellationToken);
@@ -85,7 +85,7 @@ When a method's result depends on who is calling, pass `Session` as first parame
 public interface IMemeService : IComputeService
 {
     [ComputeMethod]
-    Task<ImmutableList<MemeDto>> GetMyMemesAsync(
+    Task<ImmutableList<Meme>> GetMyMemesAsync(
         Session session,
         CancellationToken cancellationToken);
 }
@@ -94,7 +94,7 @@ public class MemeService : IMemeService
 {
     private readonly IAuth _auth;
 
-    public virtual async Task<ImmutableList<MemeDto>> GetMyMemesAsync(
+    public virtual async Task<ImmutableList<Meme>> GetMyMemesAsync(
         Session session,
         CancellationToken cancellationToken)
     {

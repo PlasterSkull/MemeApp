@@ -6,7 +6,7 @@ This file provides guidance to Claude Code when working with this repository.
 
 MemeApp is a personal meme library — a system for collecting, organizing, and sorting memes.
 Supported media types: **Photo** (static images), **Video** (mp4/webm), **Gif** (animated).
-Targets two platforms: **Web** (Blazor) and **Mobile** (MAUI).
+Targets two platforms: **Web** (Blazor) and **Mobile** (MAUI with Blazor).
 
 ## Build Commands
 

@@ -8,7 +8,7 @@
 | Interface | `I` + PascalCase | `IMemeService`, `ITagRepository` |
 | Enum | PascalCase | `MediaType` |
 | Enum member | PascalCase | `MediaType.Photo` |
-| Record / Struct | PascalCase | `MemeDto`, `TagSlug` |
+| Record / Struct | PascalCase | `TagSlug` |
 
 ## Members
 
@@ -20,15 +20,6 @@
 | Local variable | camelCase | `meme`, `tagSlug` |
 | Parameter | camelCase | `memeId`, `cancellationToken` |
 | Const | PascalCase | `MaxTagLength` |
-
-## DTOs
-
-Suffix `Dto` on data transfer objects:
-
-```csharp
-public record MemeDto(Guid Id, string Title, MediaType MediaType);
-public record TagDto(Guid Id, string Name, string Slug);
-```
 
 ## Services and Interfaces
 
@@ -45,9 +36,9 @@ ITagService   →  TagService
 All async methods end in `Async`:
 
 ```csharp
-Task<MemeDto?> GetAsync(...)
+Task<Meme?> GetAsync(...)
 Task AddTagAsync(...)
-Task<ImmutableList<MemeDto>> ListByTagAsync(...)
+Task<ImmutableList<Meme>> ListByTagAsync(...)
 ```
 
 ## Lambda Variables (LINQ)

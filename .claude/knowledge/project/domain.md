@@ -16,7 +16,7 @@ public partial struct TagId { }
 public partial struct CollectionId { }
 ```
 
-**Where to use:** Domain entities and their DTOs.
+**Where to use:** Domain entity classes.
 **Where NOT to use:** EF Core DB model classes (use `Guid` there for ORM compatibility).
 
 ## Core Entities

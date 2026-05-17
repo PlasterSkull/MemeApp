@@ -9,4 +9,5 @@
 | [fusion.md](fusion.md) | Fusion-specific coding patterns |
 | [async.md](async.md) | async/await, CancellationToken, Task vs ValueTask |
 | [blazor-ui.md](blazor-ui.md) | Blazor components, MudBlazor, Fusion integration |
+| [strongly-typed-id.md](strongly-typed-id.md) | StronglyTypedId — declaration, IsNone, where to use |
 | [testing.md](testing.md) | Test structure, naming, what to test |
