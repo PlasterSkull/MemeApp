@@ -1,0 +1,12 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>d5e53c72-f386-4a18-ad3f-2691f4e60c1a</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MemeApp.Apps.ServerHost\MemeApp.Apps.ServerHost.csproj" />
+  </ItemGroup>
+
+</Project>

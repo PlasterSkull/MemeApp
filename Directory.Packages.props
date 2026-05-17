@@ -19,14 +19,31 @@
     <OpenTelemetryVersion>1.14.0</OpenTelemetryVersion>
     <XamarinAndroidLifecycle>[2.9.2.1,)</XamarinAndroidLifecycle>
   </PropertyGroup>
-  <!-- Dependencies -->
-  <ItemGroup Label="Nupkg Versions">
-    <PackageVersion Include="ActualLab.Core" Version="$(ActualLabVersion)" />
+  <!-- Nupkg Versions -->
+  <ItemGroup Label="System Nupkg Versions">
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.12.0" />
+    <PackageVersion Include="System.Linq.Async" Version="6.0.3" />
+  </ItemGroup>
+  <ItemGroup Label="ActualLab Nupkg Versions">
+    <PackageVersion Include="ActualLab.CommandR" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion" Version="$(ActualLabVersion)" />
     <PackageVersion Include="ActualLab.Fusion.Blazor" Version="$(ActualLabVersion)" />
-    <PackageVersion Include="Fluxor.Blazor.Web" Version="6.0.0" />
+    <PackageVersion Include="ActualLab.Fusion.Blazor.Authentication" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.EntityFramework" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.EntityFramework.Npgsql" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.Ext.Services" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Fusion.Server" Version="$(ActualLabVersion)" />
+    <PackageVersion Include="ActualLab.Generators" Version="$(ActualLabVersion)" />
+  </ItemGroup>
+  <ItemGroup Label="PlasterSkull Nupkg Versions">
+    <PackageVersion Include="PlasterSkull.Framework.Core" Version="$(PlasterSkullVersion)" />
+    <PackageVersion Include="PlasterSkull.Framework.Blazor" Version="$(PlasterSkullVersion)" />
+    <PackageVersion Include="PlasterSkull.Framework.Blazor.ServerSide" Version="$(PlasterSkullVersion)" />
+  </ItemGroup>
+  <ItemGroup Label="Nupkg Versions">
+    <PackageVersion Include="PlasterSkull.Framework.Core" Version="0.1.0" />
     <PackageVersion Include="FluentValidation" Version="12.1.1" />
-    <PackageVersion Include="Markdig" Version="0.37.0" />
-    <PackageVersion Include="Markdown.ColorCode" Version="2.3.0" />
+    <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <!-- Blazor -->
     <PackageVersion Include="Microsoft.AspNetCore.Components" Version="$(BlazorVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Authorization" Version="$(BlazorVersion)" />
@@ -34,11 +51,9 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazorVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(BlazorVersion)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(BlazorVersion)" PrivateAssets="all" />
+    <PackageVersion Include="MudBlazor" Version="9.4.0" />
     <!-- Build -->
     <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
-    <PackageVersion Include="MudBlazor" Version="9.4.0" />
-    <PackageVersion Include="PlasterSkull.Framework.Core" Version="0.1.0" />
-    <PackageVersion Include="StronglyTypedId" Version="1.0.0" />
   </ItemGroup>
   <!--
     MAUI is not fully compatible with centralized packages management:

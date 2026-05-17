@@ -7,6 +7,7 @@
     <File Path=".claude/knowledge/project/overview.md" />
     <File Path=".claude/knowledge/project/domain.md" />
   </Folder>
+  <Folder Name="/.claude/knowledge/" />
   <Folder Name="/.claude/knowledge/architecture/">
     <File Path=".claude/knowledge/architecture/README.md" />
     <File Path=".claude/knowledge/architecture/overview.md" />
@@ -28,15 +29,15 @@
   <Folder Name="/src/dotnet/" />
   <Folder Name="/src/dotnet/Apps/">
     <Project Path="D:/Repositories/MemeApp/src/dotnet/Apps/MemeApp.Apps.UI.Core/MemeApp.Apps.UI.Core.csproj" Id="cfde57b6-468a-4980-ab9f-434d8fcf36e9" />
-  </Folder>
-  <Folder Name="/src/dotnet/Core/">
-    <Project Path="D:/Repositories/MemeApp/src/dotnet/Core/MemeApp.Core/MemeApp.Core.csproj" />
+    <Project Path="src/dotnet/Apps/MemeApp.Apps.ServerHost/MemeApp.Apps.ServerHost.csproj" />
+    <Project Path="src/dotnet/Apps/MemeApp.Apps.ServiceDefaults/MemeApp.Apps.ServiceDefaults.csproj" Id="9f861941-eec3-4cd5-8a57-4d3217c403b8" />
+    <Project Path="src/dotnet/Apps/MemeApp.Apps.SystemHost/MemeApp.Apps.SystemHost.csproj" Id="11dd05dd-cdb7-4a47-97d5-48f7b1bdb9c5" />
   </Folder>
   <Folder Name="/src/dotnet/Domains/" />
   <Folder Name="/src/dotnet/Domains/Memes/" />
-  <Folder Name="/src/dotnet/Domains/Users/" />
-  <Folder Name="/src/dotnet/Infrastructure/">
-    <Project Path="D:/Repositories/MemeApp/src/dotnet/Infrastructure/MemeApp.Infrastructure.Data/MemeApp.Infrastructure.Data.csproj" Id="b38658be-1d5f-44db-b3a0-7328f1baaa94" />
+  <Folder Name="/src/dotnet/Domains/Users/">
+    <Project Path="src/dotnet/Domains/Users/MemeApp.Users.Contracts/MemeApp.Users.Contracts.csproj" Id="64a0ee9d-b63f-4186-b4aa-852e085aa376" />
+    <Project Path="src/dotnet/Domains/Users/MemeApp.Users.Core/MemeApp.Users.Core.csproj" Id="26f44e60-9927-4cc4-8c0c-240978293f9e" />
   </Folder>
   <Folder Name="/src/dotnet/Shared/">
     <Project Path="D:/Repositories/MemeApp/src/dotnet/Shared/MemeApp.Common/MemeApp.Common.csproj" />

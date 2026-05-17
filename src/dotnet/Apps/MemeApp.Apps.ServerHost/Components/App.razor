@@ -1,0 +1,131 @@
+﻿@* <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    
+    <link rel="stylesheet" href="@Assets["app.css"]" />
+    
+    <ImportMap />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+
+<body>
+    <Routes @rendermode="InteractiveServer" />
+    <ReconnectModal />
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+
+</html> *@
+
+
+@using ActualLab.Fusion.Blazor
+@using ActualLab.Fusion.Server.Authentication
+@using ActualLab.Fusion.Server.Endpoints
+
+@using Microsoft.AspNetCore.Components.Web
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<base href="/" />
+	<ResourcePreloader />
+
+	<!-- MudBlazor -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+	<link href="@Assets["_content/MudBlazor/MudBlazor.min.css"]" rel="stylesheet" />
+
+	<!-- Main Css -->
+	<link rel="stylesheet" href="@Assets["_content/PlasterSkull.Framework.Blazor.Infrastructure/index.css"]" />
+	<link rel="stylesheet" href="@Assets["_content/PlasterSkull.Framework.Blazor/index.css"]" />
+	<link rel="stylesheet" href="@Assets["_content/CodeBeam.MudBlazor.Extensions/MudExtensions.min.css"]" />
+	
+	@*<link rel="stylesheet" href="@Assets["_content/Salota.Apps.EasyReservation.Lab/css/app.css"]" /> *@
+	<link rel="stylesheet" href="@Assets["MemeApp.Apps.ServerHost.styles.css"]" />
+
+	<!-- ActualLab.Fusion -->
+	<script src="@Assets["_content/ActualLab.Fusion.Blazor.Authentication/scripts/fusionAuth.js"]"></script>
+	<script>
+		window.FusionAuth.schemas = "@_authSchemas";
+	</script>
+	<HeadOutlet @rendermode="SalotaRenderMode.InteractiveServerWithoutPrerender" />
+</head>
+
+<body>
+	<div id="reconnect-overlay"
+		 class="overlay"
+		 style="display: none; justify-content: center; align-items: center;">
+		<div style="font-size: large;">
+			Подключение разорвано, ожидайте переподключения или <b><a onClick="window.location.reload()">обновите</a></b> страницу
+		</div>
+	</div>
+
+	<AppRouter @rendermode="SalotaRenderMode.InteractiveServerWithoutPrerender"
+			   SessionId="@_sessionId" />
+
+	<!-- Main -->
+	<script src="@Assets["_framework/blazor.web.js"]"></script>
+
+	<!-- MudBlazor -->
+	<script src="@Assets["_content/MudBlazor/MudBlazor.min.js"]"></script>
+	<script src="@Assets["_content/CodeBeam.MudBlazor.Extensions/MudExtensions.min.js"]"></script>
+
+	<!-- PlasterSkull -->
+	<script src="@Assets["_content/PlasterSkull.Framework.Blazor.Infrastructure/runtime.js"]"></script>
+	<script src="@Assets["_content/PlasterSkull.Framework.Blazor.Infrastructure/index.js"]"></script>
+	<script src="@Assets["_content/PlasterSkull.Framework.Blazor/index.js"]"></script>
+
+</body>
+
+</html>
+
+	@code{
+	#region Params
+
+	[CascadingParameter] private HttpContext HttpContext { get; set; } = null!;
+
+	#endregion
+
+	#region Injects
+
+	[Inject] private ServerAuthHelper _serverAuthHelper { get; init; } = null!;
+
+	#endregion
+
+	#region Fields
+
+	private bool _isInitialized;
+	//private RenderModeDef? _renderMode; // Static by default
+	private string _authSchemas = "";
+	private string _sessionId = "";
+
+	#endregion
+
+	#region LC Events
+
+	public override async Task SetParametersAsync(ParameterView parameters)
+	{
+		// We want to postpone the very first render till the moment async code below completes.
+		// That's why we override SetParametersAsync instead of OnInitializedAsync.
+		if (!_isInitialized)
+		{
+			_isInitialized = true;
+			parameters.SetParameterProperties(this); // This call must be executed ASAP
+													 //if (HttpContext.AcceptsInteractiveRouting())
+													 //    _renderMode = RenderModeEndpoint.GetRenderMode(HttpContext);
+			await _serverAuthHelper.UpdateAuthState(HttpContext);
+			_authSchemas = await _serverAuthHelper.GetSchemas(HttpContext);
+			_sessionId = _serverAuthHelper.Session.Id;
+		}
+
+		await base.SetParametersAsync(parameters);
+	}
+
+	#endregion
+}
