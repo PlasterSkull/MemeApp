@@ -15,6 +15,8 @@
     <MauiVersion>10.0.20</MauiVersion>
     <ActualLabVersion>12.4.6</ActualLabVersion>
     <PlasterSkullVersion>0.1.0</PlasterSkullVersion>
+    <AspireVersion>10.1.0</AspireVersion>
+    <OpenTelemetryVersion>1.14.0</OpenTelemetryVersion>
     <XamarinAndroidLifecycle>[2.9.2.1,)</XamarinAndroidLifecycle>
   </PropertyGroup>
   <!-- Dependencies -->
@@ -36,6 +38,7 @@
     <PackageVersion Include="Microsoft.Build.Utilities.Core" Version="18.4.0" />
     <PackageVersion Include="MudBlazor" Version="9.4.0" />
     <PackageVersion Include="PlasterSkull.Framework.Core" Version="0.1.0" />
+    <PackageVersion Include="StronglyTypedId" Version="1.0.0" />
   </ItemGroup>
   <!--
     MAUI is not fully compatible with centralized packages management:
@@ -104,6 +107,15 @@
     <!-- Somehow these packages are updated w/ ASP.NET Core -->
     <PackageVersion Include="Microsoft.Extensions.Http.Polly" Version="$(AspNetCoreVersion)" />
     <PackageVersion Include="Microsoft.Extensions.ObjectPool" Version="$(AspNetCoreVersion)" />
+    <!-- Aspire / ServiceDefaults -->
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="$(AspireVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="$(AspireVersion)" />
+    <!-- OpenTelemetry -->
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="$(OpenTelemetryVersion)" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="$(OpenTelemetryVersion)" />
     <!-- Test -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />

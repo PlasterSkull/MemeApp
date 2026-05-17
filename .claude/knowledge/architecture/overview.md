@@ -56,4 +56,5 @@ the `.Maui` project name suffix triggers the conditional exclusion already in pl
 | **ActualLab.Fusion** | Real-time reactive state: computed services, live queries, sessions |
 | **MudBlazor** | Material Design UI components for Blazor |
 | **FluentValidation** | Input validation |
+| **StronglyTypedId** | Compile-time safe entity IDs for domain models |
 | **EF Core** | Data access (Infrastructure layer) |
