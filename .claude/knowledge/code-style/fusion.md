@@ -22,6 +22,7 @@ Rules:
 - `[ComputeMethod]` on every reactive method
 - Return `Task<T>` — never `ValueTask`, never plain `T`
 - `CancellationToken cancellationToken = default` always last
+- **Always pass `cancellationToken` through every call** — never drop it mid-chain
 
 ---
 
