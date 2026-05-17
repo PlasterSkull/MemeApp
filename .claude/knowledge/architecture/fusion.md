@@ -28,24 +28,12 @@ using (Invalidation.Begin())
 Calls inside `Invalidation.Begin()` complete synchronously without executing the method body.
 They only mark the matching cache entries as stale.
 
-Use `Invalidation.Begin()` — **not** `Computed.Invalidate()`.
-
 ## Session / Auth
 
 - `Session` is passed as a method parameter (never stored in a field)
 - Services that scope results to a user take `Session session` as first parameter
 - `IAuth.GetUser(session, ct)` creates a dependency on auth state — auto-invalidates on sign-out
 - `ClientAuthHelper` and `ISessionResolver` are the entry points in Blazor components
-
-## Registration
-
-```csharp
-var fusion = services.AddFusion();
-fusion.AddService<IMemeService, MemeService>();
-
-// Blazor host also needs:
-services.AddFusion().AddBlazor();
-```
 
 For coding patterns (interfaces, components, invalidation examples) see:
 `.claude/knowledge/code-style/fusion.md`

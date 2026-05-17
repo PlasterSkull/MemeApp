@@ -5,7 +5,14 @@
   <Folder Name="/.claude/knowledge/project/">
     <File Path=".claude/knowledge/project/README.md" />
     <File Path=".claude/knowledge/project/overview.md" />
-    <File Path=".claude/knowledge/project/domain.md" />
+  </Folder>
+  <Folder Name="/.claude/knowledge/project/domains/" />
+  <Folder Name="/.claude/skills/" />
+  <Folder Name="/.claude/skills/memeapp-domain-spec/">
+    <File Path=".claude/skills/memeapp-domain-spec/SKILL.md" />
+  </Folder>
+  <Folder Name="/.claude/skills/memeapp-domain-impl/">
+    <File Path=".claude/skills/memeapp-domain-impl/SKILL.md" />
   </Folder>
   <Folder Name="/.claude/knowledge/" />
   <Folder Name="/.claude/knowledge/architecture/">
