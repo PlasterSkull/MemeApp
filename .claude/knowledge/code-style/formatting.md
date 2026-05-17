@@ -96,6 +96,32 @@ var results = memes.Where(tag => ...).ToList(); // complex
 public private internal protected async static readonly sealed override abstract
 ```
 
+## Immutable Collections
+
+Prefer immutable collections for return types and domain model properties:
+
+| Instead of | Use |
+|-----------|-----|
+| `List<T>` | `ImmutableList<T>` |
+| `Dictionary<K,V>` | `ImmutableDictionary<K,V>` |
+| `HashSet<T>` | `ImmutableHashSet<T>` |
+
+```csharp
+// Service return types
+Task<ImmutableList<Meme>> ListByTagAsync(string tag, CancellationToken cancellationToken);
+
+// Domain model properties
+public ImmutableList<Tag> Tags { get; init; } = [];
+```
+
+Use mutable collections only inside method bodies when building up a result, then convert:
+
+```csharp
+var results = new List<Meme>();
+// ... build ...
+return results.ToImmutableList();
+```
+
 ## Other
 
 - No `this.` qualification on any member
