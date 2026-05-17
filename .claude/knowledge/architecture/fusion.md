@@ -6,65 +6,46 @@ Fusion provides transparent reactive caching.
 A `[ComputeMethod]` result is cached and automatically invalidated
 when its dependencies change — clients get live updates without polling.
 
-## IComputeService
+Cache key = `(service, method, arguments)`. When a value is invalidated,
+all computed values that called it as a dependency are also invalidated (cascading DAG).
 
-All Fusion-reactive services implement `IComputeService`:
+## Core Pattern
 
-```csharp
-public interface IMemeService : IComputeService
-{
-    [ComputeMethod]
-    Task<MemeDto?> GetAsync(Guid id, CancellationToken ct = default);
-
-    [ComputeMethod]
-    Task<ImmutableList<MemeDto>> ListByTagAsync(string tag, CancellationToken ct = default);
-}
-```
-
-Rules:
-- Interface must extend `IComputeService`
-- Reactive methods get `[ComputeMethod]` attribute
-- Return type must be `Task<T>` (not `ValueTask`)
-- Last parameter is always `CancellationToken ct = default`
+**Compute services** expose reactive methods marked `[ComputeMethod]`.
+**Mutations** call `Invalidation.Begin()` to mark stale entries.
+**Blazor components** inherit `ComputedStateComponent<T>` and re-render automatically.
 
 ## Invalidation
 
-Mutations invalidate affected compute results:
-
 ```csharp
-public async Task AddTagAsync(Guid memeId, string tag, CancellationToken ct = default)
+using (Invalidation.Begin())
 {
-    // ... persist ...
-    using (Computed.Invalidate())
-    {
-        _ = GetAsync(memeId);
-        _ = ListByTagAsync(tag);
-    }
+    _ = GetAsync(id);           // marks this call's cache entry stale
+    _ = ListByTagAsync(tag);    // cascades to all dependents
 }
 ```
 
-## Blazor Integration
+Calls inside `Invalidation.Begin()` complete synchronously without executing the method body.
+They only mark the matching cache entries as stale.
 
-Use `ComputedStateComponent<T>` as base class for reactive components:
-
-```csharp
-@inherits ComputedStateComponent<ImmutableList<MemeDto>>
-
-protected override async Task<ImmutableList<MemeDto>> ComputeState(CancellationToken ct)
-    => await MemeService.ListByTagAsync(CurrentTag, ct);
-```
-
-The component re-renders automatically when the computed value is invalidated.
+Use `Invalidation.Begin()` — **not** `Computed.Invalidate()`.
 
 ## Session / Auth
 
-- `IAuth` provides session-based authentication
-- `Session` flows through service method parameters
-- Never store session in a field — always pass through the call chain
+- `Session` is passed as a method parameter (never stored in a field)
+- Services that scope results to a user take `Session session` as first parameter
+- `IAuth.GetUser(session, ct)` creates a dependency on auth state — auto-invalidates on sign-out
+- `ClientAuthHelper` and `ISessionResolver` are the entry points in Blazor components
 
 ## Registration
 
 ```csharp
 var fusion = services.AddFusion();
 fusion.AddService<IMemeService, MemeService>();
+
+// Blazor host also needs:
+services.AddFusion().AddBlazor();
 ```
+
+For coding patterns (interfaces, components, invalidation examples) see:
+`.claude/knowledge/code-style/fusion.md`
