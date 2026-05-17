@@ -98,6 +98,12 @@ Spec format:
 ```markdown
 # Domain Spec: <DomainName>
 
+## Purpose
+
+<1-3 sentences: what this domain models, why it exists, what problem it solves.
+If user gave a brief description, expand it into a clear statement of responsibility.
+If user gave a verbose description, distill to the essential.>
+
 ## Aggregates
 - <PrimaryAggregate> — <one-line purpose>
 - <RelatedAggregate> — <one-line purpose>
@@ -139,6 +145,7 @@ Add a row to `.claude/knowledge/project/README.md`:
 
 ## Rules
 
+- **Purpose section**: always write it. If user's description is terse — expand. If verbose — distill. Aim for 1-3 sentences that clearly state what the domain owns and why.
 - Strongly typed IDs: `<Name>Id` — `readonly record struct` wrapping Guid
 - Return types are **aggregates** (no DTO suffix) — e.g., `Meme`, not `MemeDto`
 - `DeleteAsync` and relation-mutation commands return nothing (`Task`)

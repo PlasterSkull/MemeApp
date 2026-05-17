@@ -6,7 +6,9 @@
     <File Path=".claude/knowledge/project/README.md" />
     <File Path=".claude/knowledge/project/overview.md" />
   </Folder>
-  <Folder Name="/.claude/knowledge/project/domains/" />
+  <Folder Name="/.claude/knowledge/project/domains/Users/">
+    <File Path=".claude/knowledge/project/domains/Users/README.md" />
+  </Folder>
   <Folder Name="/.claude/skills/" />
   <Folder Name="/.claude/skills/memeapp-domain-spec/">
     <File Path=".claude/skills/memeapp-domain-spec/SKILL.md" />
