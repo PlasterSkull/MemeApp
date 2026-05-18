@@ -11,7 +11,8 @@
         "DOTNET_ENVIRONMENT": "Development",
         "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21000",
         "ASPIRE_DASHBOARD_MCP_ENDPOINT_URL": "https://localhost:23079",
-        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22023"
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22023",
+        "DCP_IP_VERSION_PREFERENCE": "ipv4"
       }
     },
     "http": {

@@ -16,6 +16,12 @@
   <Folder Name="/.claude/skills/memeapp-domain-impl/">
     <File Path=".claude/skills/memeapp-domain-impl/SKILL.md" />
   </Folder>
+  <Folder Name="/.claude/skills/memeapp-domain-spec-update/">
+    <File Path=".claude/skills/memeapp-domain-spec-update/SKILL.md" />
+  </Folder>
+  <Folder Name="/.claude/skills/memeapp-domain-impl-update/">
+    <File Path=".claude/skills/memeapp-domain-impl-update/SKILL.md" />
+  </Folder>
   <Folder Name="/.claude/knowledge/" />
   <Folder Name="/.claude/knowledge/architecture/">
     <File Path=".claude/knowledge/architecture/README.md" />
